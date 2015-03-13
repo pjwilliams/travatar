@@ -46,7 +46,12 @@ HyperGraph * WordSplitter::TransformGraph(const HyperGraph & hg) const {
                 vector<HyperNode*> split_nodes;
                 for(int i = new_span.first; i < new_span.second; i++) {
                     // Add a new pre-terminal
-                    HyperNode* new_pre = new HyperNode(node->GetSym(), node->GetTrgSym(), make_pair(i,i+1));
+                    HyperNode* new_pre = NULL;
+                    if (i == new_span.first+1) {
+                      new_pre = new HyperNode(Dict::WID("SPLIT"), Dict::WID("SPLIT"), make_pair(i,i+1));
+                    } else {
+                      new_pre = new HyperNode(node->GetSym(), node->GetTrgSym(), make_pair(i,i+1));
+                    }
                     ret->AddNode(new_pre);
                     split_nodes.push_back(new_pre);
                     // Add a new terminal
