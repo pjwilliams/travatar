@@ -36,6 +36,7 @@ public:
         AddConfigEntry("case", "none", "How to case the trees (none/low/title/true:model=FILE)");
         AddConfigEntry("flatten", "false", "Whether to flatten unary productions");
         AddConfigEntry("debug", "0", "How much debug output to produce");
+        AddConfigEntry("no_egret_weight_normalization", "false", "disable normalization of weights in Egret forests");
 
 
     }

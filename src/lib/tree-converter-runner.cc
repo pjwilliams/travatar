@@ -29,9 +29,13 @@ void TreeConverterRunner::Run(const ConfigTreeConverterRunner & config) {
     scoped_ptr<TreeIO> tree_in, tree_out;
     if(config.GetString("input_format") == "penn")
         tree_in.reset(new PennTreeIO);
-    else if(config.GetString("input_format") == "egret")
-        tree_in.reset(new EgretTreeIO);
-    else if(config.GetString("input_format") == "json")
+    else if(config.GetString("input_format") == "egret") {
+        EgretTreeIO *p = new EgretTreeIO();
+        if (config.GetBool("no_egret_weight_normalization")) {
+          p->SetNormalize(false);
+        }
+        tree_in.reset(p);
+    } else if(config.GetString("input_format") == "json")
         tree_in.reset(new JSONTreeIO);
     else if(config.GetString("input_format") == "rule")
         tree_in.reset(new RuleTreeIO);
